@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from .utils import STATUS
+from django_deprecate_fields import deprecate_field
 
 
 class Course(models.Model):
@@ -16,12 +17,12 @@ class LearningActivity(models.Model):
 class UserData(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_data', on_delete=models.CASCADE)
-    learn_unit = models.ForeignKey(
+    learn_unit = deprecate_field(models.ForeignKey(
         Course,
         related_name='course_user_data',
         on_delete=models.CASCADE,
         null=True
-    )
+    ))
     learning_activity = models.ForeignKey(
         LearningActivity,
         related_name='element_user_progress',
@@ -59,4 +60,4 @@ class UserData(models.Model):
             # if not already finished, finish now!
             if progress.status != STATUS.COMPLETED:
                 progress.status = STATUS.COMPLETED
-                progress.save()
+                progress.save(update_fields=['status'])
