@@ -129,7 +129,7 @@ class UpdateUserMutation(utils.UpdateMutation):
         first_name = graphene.String()
         last_name = graphene.String()
         # create field validation for email
-        email = graphene.String()
+        email = graphene.Strizng()
 
 
 class DeleteUserMutation(utils.DeleteMutation):

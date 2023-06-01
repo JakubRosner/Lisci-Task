@@ -1,22 +1,41 @@
+# Run `docker-compose up --build` to build and to run all containers.
 version: "3"
 services:
-  web:
+  api:
     build:
-      context: .
+      context: ./  # Adjust the context path if necessary
       dockerfile: Dockerfile
+    restart: on-failure
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
-      - .:/app
+      - ./LisciTask:/app
+    environment:
+      - POSTGRES_NAME=lisci
+      - POSTGRES_USER=lisci
+      - POSTGRES_PASSWORD=lisci
+    networks:
+      - djangonetwork
     depends_on:
       - db
+    links:
+      - db
   db:
-    image: postgres
+    image: postgres:12
+    container_name: db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      - POSTGRES_NAME=lisci
+      - POSTGRES_USER=lisci
+      - POSTGRES_PASSWORD=lisci
+    ports:
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - djangonetwork
 volumes:
   postgres_data:
+
+networks:
+      djangonetwork:
+          driver: bridge
