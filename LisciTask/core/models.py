@@ -16,6 +16,12 @@ class LearningActivity(models.Model):
 class UserData(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_data', on_delete=models.CASCADE)
+    learn_unit = models.ForeignKey(
+        Course,
+        related_name='course_user_data',
+        on_delete=models.CASCADE,
+        null=True
+    )
     learning_activity = models.ForeignKey(
         LearningActivity,
         related_name='element_user_progress',
