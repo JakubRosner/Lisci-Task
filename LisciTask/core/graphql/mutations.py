@@ -1,8 +1,8 @@
 import graphene
-from .. import utils
-from .. import models
-from . import types
 from django.contrib.auth.models import User
+
+from .. import models, utils
+from . import types
 
 
 # Course CRUD

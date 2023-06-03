@@ -1,5 +1,6 @@
 import graphene
-from . import types, connections
+
+from . import connections, types
 
 
 class UserQuery(graphene.ObjectType):
@@ -14,7 +15,9 @@ class CourseQuery(graphene.ObjectType):
 
 class LearningActivityQuery(graphene.ObjectType):
     learning_activity = graphene.Node.Field(types.LearningActivityType)
-    all_learning_activities = graphene.relay.ConnectionField(connections.LearningActivityConnection)
+    all_learning_activities = graphene.relay.ConnectionField(
+        connections.LearningActivityConnection
+    )
 
 
 class UserDataQuery(graphene.ObjectType):

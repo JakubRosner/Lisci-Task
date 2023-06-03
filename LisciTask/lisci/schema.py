@@ -1,15 +1,12 @@
-import graphene
 import core.graphql.schema
+import graphene
 
-class Query(
-    core.graphql.schema.Query
-):
+
+class Query(core.graphql.schema.Query):
     node = graphene.Node.Field()
 
 
-class Mutation(
-    core.graphql.schema.Mutation
-):
+class Mutation(core.graphql.schema.Mutation):
     pass
 
 

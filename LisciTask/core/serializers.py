@@ -1,12 +1,15 @@
-from rest_framework import serializers
-from . import models
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
+from . import models
 
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Course
-        fields = ["name",]
+        fields = [
+            "name",
+        ]
 
 
 class LearningActivitySerializer(serializers.ModelSerializer):
@@ -33,5 +36,5 @@ class UserDataSerializer(serializers.ModelSerializer):
             "progress",
             "score",
             "manually_finished",
-            "manually_finished_at"
+            "manually_finished_at",
         ]

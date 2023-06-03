@@ -1,8 +1,9 @@
-import graphene
+import base64
 from enum import auto
+
+import graphene
 from django.db import models
 from graphql.error import GraphQLError
-import base64
 
 
 class STATUS(models.TextChoices):
@@ -37,9 +38,9 @@ class GetOrCreateMutation(graphene.Mutation):
 class UpdateMutation(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, **input):
-        obj = exists_or_raise(cls.model, input['id'])
+        obj = exists_or_raise(cls.model, input["id"])
 
-        input.pop('id')
+        input.pop("id")
         for key, value in input.items():
             setattr(obj, key, value)
         obj.save(update_fields=input.keys())
@@ -52,8 +53,6 @@ class DeleteMutation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, **input):
-        obj = exists_or_raise(cls.model, input['id'])
+        obj = exists_or_raise(cls.model, input["id"])
         obj.delete()
         return cls(ok=True)
-
-

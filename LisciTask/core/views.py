@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
-from rest_framework import permissions
-from . import serializers
-from . import models
+from rest_framework import permissions, viewsets
+
+from . import models, serializers
 
 
 class UserViewSet(viewsets.ModelViewSet):

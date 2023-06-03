@@ -1,5 +1,6 @@
 import graphene
-from . import queries, mutations
+
+from . import mutations, queries
 
 
 class Query(

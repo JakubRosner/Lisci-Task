@@ -1,7 +1,8 @@
 import graphene
-from graphene_django import DjangoObjectType
-from .. import models
 from django.contrib.auth.models import User
+from graphene_django import DjangoObjectType
+
+from .. import models
 
 
 class UserType(DjangoObjectType):
@@ -15,7 +16,7 @@ class CourseType(DjangoObjectType):
     class Meta:
         model = models.Course
         fields = "__all__"
-        interfaces = (graphene.relay.Node, )
+        interfaces = (graphene.relay.Node,)
 
 
 class LearningActivityType(DjangoObjectType):
