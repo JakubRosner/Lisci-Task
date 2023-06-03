@@ -2,6 +2,7 @@ import graphene
 from enum import auto
 from django.db import models
 from graphql.error import GraphQLError
+import base64
 
 
 class STATUS(models.TextChoices):
@@ -18,6 +19,11 @@ def exists_or_raise(model, id):
         return model.objects.get(id=id)
     except model.DoesNotExist:
         raise GraphQLError("Objects does not exists")
+
+
+def get_global_id(model_name, id):
+    return base64.b64encode(f"{model_name.__name__}Type:{id}".encode()).decode()
+
 
 class GetOrCreateMutation(graphene.Mutation):
     created = graphene.Boolean()
@@ -49,3 +55,5 @@ class DeleteMutation(graphene.Mutation):
         obj = exists_or_raise(cls.model, input['id'])
         obj.delete()
         return cls(ok=True)
+
+

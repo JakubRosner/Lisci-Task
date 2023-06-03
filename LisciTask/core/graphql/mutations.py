@@ -5,7 +5,6 @@ from . import types
 from django.contrib.auth.models import User
 
 
-
 # Course CRUD
 class CreateCourseMutation(utils.GetOrCreateMutation):
     model = models.Course
@@ -40,7 +39,7 @@ class CreateLearningActivityMutation(utils.GetOrCreateMutation):
     class Arguments:
         name = graphene.String(required=True)
         completed = graphene.Boolean()
-        course_id = graphene.ID()
+        course_id = graphene.ID(required=True)
 
 
 class UpdateLearningActivityMutation(utils.UpdateMutation):
@@ -87,7 +86,7 @@ class UpdateUserDataMutation(utils.UpdateMutation):
     class Arguments:
         id = graphene.ID(required=True)
         timestamp = graphene.DateTime()
-        user_id = graphene.ID(required=True)
+        user_id = graphene.ID()
         learning_activity_id = graphene.ID()
         data = graphene.String()
         status = utils.Enums.STATUS()
@@ -129,7 +128,7 @@ class UpdateUserMutation(utils.UpdateMutation):
         first_name = graphene.String()
         last_name = graphene.String()
         # create field validation for email
-        email = graphene.Strizng()
+        email = graphene.String()
 
 
 class DeleteUserMutation(utils.DeleteMutation):

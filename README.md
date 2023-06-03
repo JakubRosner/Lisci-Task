@@ -47,3 +47,10 @@ export DJANGO_SETTINGS_MODULE=lisci.settings.local
 ```bash
 python3 manage.py runserver 
 ```
+
+## Troubleshooting
+
+If db user lisci dont have a permissions use this
+```bash
+ALTER USER lisci CREATEDB;
+```
